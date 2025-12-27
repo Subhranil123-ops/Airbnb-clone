@@ -1,53 +1,17 @@
-.price{
-display: flex;
-flex-direction: column;
-}
-.input2{
-display: flex;
-
-}
 .new{
+    padding-top:0.15rem ;
     width: fit-content;
     margin: auto;
-    margin-top: 10px;
 }
-/* nav */
-.navbar{
-    background-color:gray ;
-    position: fixed;
-    overflow: hidden;
-    width: 100%;
-
-    top: 0;
-    z-index: 5;
-}
-.app{
-    color: #FF385C !important;
-    font-weight: 700;
-    display: flex;
+.backListing{
+    text-decoration: none;
+    color: #002080;
+    font-weight: 600;
+        display: flex;
     align-items: center;
+    gap: 0.25rem;
 }
-.airbnb-icon{
-    font-size: 3.125rem;
-}
-.navbar-toggler {
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0.25rem !important;
+.btl:hover{
+    text-decoration: 1px solid #002080 underline;
 }
 
-.navbar-toggler-icon {
-  width: 1.5rem !important;
-  height: 1.5rem !important;
-}
-.container-fluid{
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    padding: 0.6rem;
-}
-.rightnav{
-    display: flex;
-    align-items: center;
-    column-gap: 1.25rem;
-}

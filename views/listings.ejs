@@ -1,42 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="/listings.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-
-<body>
-
-   <%-include("includes/navbar")%>
-  <h1 class="head">All Listings</h1>
-  <div class="houses">
+<%layout("layouts/boilerplate")%>
+  <%title="WanderLust"%>
+  <%css="/listings.css"%>
+  <body>
+    <h1 class="head">All Listings</h1>
+    <div class="houses row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
       <% for( let list of showLists) { %>
-      <div class="mycard">
-
-        <form action="/listing/<%=list._id%>">
-          <button><img class="listing" src="<%=list.image.url%>" alt=""></button>
-        </form>
-        <b>
-          <p class="title">
-            <%=list.title%>
-          </p>
-        </b>
-        <p>₹<%=list.price.toLocaleString("en-IN")%>/night</p>
-
-      </div>
-      <%}%>
-
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-    crossorigin="anonymous"></script>
-    <%-include("includes/footer")%>
-</body>
-
-</html>
+        <div class="col mb-4">
+          <div class="mycard">
+            <a href="/listing/<%=list._id%>"><img class="listing" src="<%=list.image.url%>" alt=""></a>
+            <b>
+              <p class="title">
+                <%=list.title%>
+              </p>
+            </b>
+            <p>₹<%=list.price.toLocaleString("en-IN")%>/night</p>
+          </div>
+        </div>
+        <%}%>
+    </div>
+  </body>

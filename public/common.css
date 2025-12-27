@@ -1,0 +1,105 @@
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.container{
+ flex:1;
+ padding: 2rem;
+}
+/* nav */
+.navbar{
+    background-color:gray ;
+    position: fixed;
+    overflow: hidden;
+    width: 100%;
+    top: 0;
+    z-index: 5;
+}
+.app{
+    color: #FF385C !important;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+.airbnb-icon{
+    font-size: 3.125rem;
+}
+.navbar-toggler {
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0.25rem !important;
+}
+
+.navbar-toggler-icon {
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+}
+.container-fluid{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: 0.6rem;
+}
+.rightnav{
+    display: flex;
+    align-items: center;
+    column-gap: 1.25rem;
+}
+/* footer */
+.footer{
+    background-color:#F7F7F7;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 8rem;
+    padding:1rem;
+}
+.both{
+    display: flex;
+    column-gap: 60rem;
+    align-items:self ;
+}
+.inner1 ul{
+display: flex;
+    align-items: center;
+    list-style: none;
+    column-gap: 2rem;
+    color: black;
+    font-weight: 600;
+    width: 100%;
+}
+.inner2 ul{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    column-gap: 2rem;
+    width: 100%;
+}
+.nav-link{
+    text-decoration: none;
+    color:grey !important;
+}
+.nav-link:hover{
+    color: black !important;
+    text-decoration: 0.1rem solid black underline;
+}
+.footer-icon{
+    color: black;
+    font-size: 1.5rem;
+}
+.fa-instagram:hover{
+    background: radial-gradient(circle at 30% 110%,
+    #fdf497 0%, #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285AEB 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.fa-facebook:hover{
+    color: #1877F2;
+}
+.fa-twitter:hover{
+    color: #1DA1F2;
+}
