@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Air = require("./model/air.js");
+const Review=require("./model/review.js");
 
 async function main() {
     await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
@@ -27,12 +28,20 @@ app.use(express.static(path.join(__dirname, "public")));
 
 const wrapAsync = require("./utils/wrapAsync");
 const ExpressError = require("./utils/ExpressError");
-const listingSchema = require("./schema.js");
+const {listingSchema,reviewSchema} = require("./schema.js");
 const validateSchema = (req, res, next) => {
     const result = listingSchema.validate(req.body);
-    console.log(req.body);
     if (result.error) {
         return next(new ExpressError(400, result.error));
+    } else {
+        next();
+    }
+};
+let validateReview=async(req,res,next)=>{
+    let data=reviewSchema.validate(req.body);
+    console.log(data);
+    if(data.error){
+        return next(new ExpressError(400,data.error));
     }else{
         next();
     }
@@ -49,18 +58,19 @@ app.get("/listing/new", wrapAsync((req, res, next) => {
 }));
 
 // CREATE ROUTE
-app.post("/listing", validateSchema,wrapAsync(async (req, res, next) => {
+app.post("/listing", validateSchema, wrapAsync(async (req, res, next) => {
 
     let newListing = new Air(req.body.listing);
     await newListing.save();
     res.redirect("/listing");
-    
+
 }));
 
 // SHOW ROUTE
 app.get("/listing/:id", wrapAsync(async (req, res, next) => {
     let { id } = req.params;
-    let showEach = await Air.findById(id);
+    let showEach = await Air.findById(id).populate("reviews");
+    console.log(showEach);
     res.render("inlisting.ejs", { showEach });
 }));
 
@@ -68,11 +78,12 @@ app.get("/listing/:id", wrapAsync(async (req, res, next) => {
 app.get("/listing/:id/edit", wrapAsync(async (req, res, next) => {
     let { id } = req.params;
     let showEach = await Air.findById(id);
+    
     res.render("edit.ejs", { showEach });
 }));
 
 // PATCH ROUTE
-app.patch("/listing/:id",validateSchema, wrapAsync(async (req, res, next) => {
+app.patch("/listing/:id", validateSchema, wrapAsync(async (req, res, next) => {
     let { id } = req.params;
     if (!req.body.listing) {
         return next(new ExpressError(400, "Send Valid data"));
@@ -84,14 +95,25 @@ app.patch("/listing/:id",validateSchema, wrapAsync(async (req, res, next) => {
 // DELETE ROUTE
 app.delete("/listing/:id/delete", wrapAsync(async (req, res, next) => {
     let { id } = req.params;
-    await Air.findByIdAndDelete(id);
+    let r = await Air.findByIdAndDelete(id);
+    console.log(r);
     res.redirect("/listing");
 }));
 
+// reviews
+app.post("/listing/:id/reviews", validateReview,wrapAsync(async (req, res, next) => {
+    let { id } = req.params;
+    let listing=await Air.findById(id);
+    const newReview=new Review(req.body.review);
+    await newReview.save();
+    listing.reviews.push(newReview);
+    let data=await listing.save();
+    res.redirect(`/listing/${id}`);
+}));
 // RUNS WHEN ROUTE IS WRONG
-app.use((req, res, next) => {
-    next(new ExpressError(404, "Page not found"));
-});
+// app.use((req, res, next) => {
+//     return next(new ExpressError(404, "Page not found"));
+// });
 
 // ERROR NAME
 app.use((err, req, res, next) => {
@@ -101,7 +123,7 @@ app.use((err, req, res, next) => {
 
 // ERROR HANDLER
 app.use((err, req, res, next) => {
-    console.log("--------ERROR--------");
+    console.log(err.stack);
     let { status = 500, message = "Something went wrong" } = err;
     res.status(status).render("error.ejs", { message });
 });

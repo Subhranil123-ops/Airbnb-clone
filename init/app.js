@@ -12,7 +12,6 @@ main()
         console.log(err);
     });
 let insertData = async () => {
-    await Air.deleteMany({});
     await Air.insertMany(data.data);
     console.log("data was initialised")
 };

@@ -48,8 +48,8 @@ body{
 }
 /* footer */
 .footer{
-    background-color:#F7F7F7;
-    width: 100%;
+    background-color:#f7f7f7c1;
+    max-width: 100%;
     display: flex;
     align-items: center;
     height: 8rem;
