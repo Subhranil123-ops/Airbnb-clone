@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Review=require("./review");
 const schema = new mongoose.Schema({
     title: {
         type: String,
@@ -30,5 +31,13 @@ const schema = new mongoose.Schema({
         ref:"Review"
     }]
 });
+schema.pre("findOneAndDelete",async()=>console.log("PRE IS WORKING"));
+schema.post("findOneAndDelete",async(listing)=>{
+    if(listing.reviews.length){
+        await Review.deleteMany({
+            _id:{$in:listing.reviews}
+        });
+    }
+    });
 const Air = mongoose.model("Air", schema);
 module.exports = Air;

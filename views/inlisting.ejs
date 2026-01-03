@@ -31,7 +31,6 @@
                         </form>
                     </div>
                 </div>
-
                 <div class="review col-7">
                     <hr>
                     <h4>Leave a review</h4>
@@ -53,21 +52,36 @@
                         All Reviews
                     </button>
                     <div class="modal fade" id="exampleModal" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModal">Reviews</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    ></button>
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable row modal-xl">
+                            <div class="modal-content col-md-12">
+                                <div class="modal-header review-title">
+                                    <h1 class="modal-title fs-5 " id="exampleModal">Reviews</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                 </div>
-                                <div class="modal-body">
-                                    <%for(i=0;i<showEach.reviews.length;i++){%>
-                                   <p>Comment: <%=showEach.reviews[i].comment%></p>
-                                   <p>Rating: <%=showEach.reviews[i].rating%> stars</p>
-                                   <hr>
-                                   <%}%>
+                                <div class="modal-body row g-3">
+                                    <%for(review of showEach.reviews){%>
+                                        <div class="col-12 col-md-6 col-lg-4 mb-3">
+                                            <div class="card h-100">
+                                                <div class="card-body">
+                                                    <p class="card-text">
+                                                        <%=review.comment%>
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <%=review.rating%> stars
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                <form action="/listing/<%=showEach._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                                                    <button class="delete-review btn btn-outline-danger border-white"><i class="fa-solid fa-trash-arrow-up"></i></button>
+                                                </form>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                    <%}%>
+                                    
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
