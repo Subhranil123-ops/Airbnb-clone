@@ -1,0 +1,24 @@
+<%if(success.length){%>
+    <div class="alert alert-success alert-dismissible col-6 mx-auto" role="alert">
+        <div class="d-flex align-items-center pe-4">
+            <i class="fa-regular fa-circle-check"></i>
+            <div>
+                <%=success%>
+            </div>
+            <div><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+        </div>
+    </div>
+
+    <%}%>
+        <%if(failure.length){%>
+            <div class="alert alert-danger alert-dismissible col-6 mx-auto" role="alert">
+                <div class="d-flex align-items-center pe-4">
+                <i class="fa-solid fa-triangle-exclamation "></i>
+                <div>
+                    <%=failure%>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            </div>
+            <%}%>
+                

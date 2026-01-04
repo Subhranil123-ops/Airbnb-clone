@@ -14,16 +14,17 @@ const validateReview = async (req, res, next) => {
         next();
     }
 }
+
 // REVIEWS
 //POST REVIEWS
 router.post("/", validateReview, wrapAsync(async (req, res, next) => {
     let { listingId } = req.params;
-    console.log(id);
     let listing = await Air.findById(listingId);
     const newReview = new Review(req.body.review);
     await newReview.save();
     listing.reviews.push(newReview);
     let data = await listing.save();
+    req.flash("success","New Review is added");
     res.redirect(`/listing/${listingId}`);
 }));
 
@@ -35,6 +36,7 @@ router.delete("/:reviewId", wrapAsync(async (req, res, next) => {
         $pull: { reviews: reviewId }
     })
     await Review.findByIdAndDelete(reviewId);
+    req.flash("success","Review deleted");
     res.redirect(`/listing/${listingId}`);
 }
 ))

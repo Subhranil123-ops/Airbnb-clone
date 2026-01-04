@@ -1,0 +1,12 @@
+<%layout("layouts/boilerplate")%>;
+    <%title="Sign Up"%>
+<%css="app.css"%>
+<form action="/sign/userId" method="post">
+<label for="username" class="form-label">Username</label>
+<input id="username" type="text" class="form-control" name="user[username]">
+<label for="email" class="form-label">Email Id</label>
+<input id="email" type="text" class="form-control" name="user[email]">
+<label for="password" class="form-label">Password</label>
+<input id="password" type="text" class="form-control" name="user[password]">
+<button class="">Sign Up</button>
+</form>
