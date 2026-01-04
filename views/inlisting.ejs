@@ -1,87 +1,83 @@
 <%layout("layouts/boilerplate")%>
-    <%title="Each Home"%>
-        <%css="css/detail.css"%>
-
-            <div class="row offset-3">
-                <div class="col-7">
-                    
-                    <i>
-                        <h3 style="font-weight: 800;">
-                            <%=showEach.title.toUpperCase()%>
-                        </h3>
-                    </i>
-                    <img src="<%=showEach.image.url%>" alt="" class="img-fluid showimg">
-                    <i>
-                        <p style="font-weight: 700;font-size: larger;">
-                            <%=showEach.description%>
-                        </p>
-                    </i>
-                    <p>₹<%=showEach.price.toLocaleString("en-IN")%>/night</p>
-                    <p>
-                        <%=showEach.location%>
-                    </p>
-                    <p>
-                        <%=showEach.country%>
-                    </p>
-                    <div class="button">
-                        <form action="/listing/<%=showEach._id%>/edit">
-                            <button class="btn btn-danger">Edit</button>
-                        </form><br>
-                        <form action="/listing/<%=showEach._id%>/delete?_method=DELETE" method="POST">
-                            <button class="btn btn-dark">Delete</button>
-                        </form>
-                    </div>
+<%title="Each Home"%>
+<%css="css/detail.css"%>
+    <div class="row ">
+        <div class="col-7 mx-auto">
+            <h3 style="font-weight: 800;">
+                <i><%=showEach.title.toUpperCase()%></i>
+                </h3>
+            <img src="<%=showEach.image.url%>" alt="" class="img-fluid showimg">
+            <i>
+                <p style="font-weight: 700;font-size: larger;">
+                    <%=showEach.description%>
+                </p>
+            </i>
+            <p>₹<%=showEach.price.toLocaleString("en-IN")%>/night</p>
+            <p>
+                <%=showEach.location%>
+            </p>
+            <p>
+                <%=showEach.country%>
+            </p>
+            <div class="button">
+                <form action="/listing/<%=showEach._id%>/edit">
+                    <button class="btn btn-danger">Edit</button>
+                </form><br>
+                <form action="/listing/<%=showEach._id%>/delete?_method=DELETE" method="POST">
+                    <button class="btn btn-dark">Delete</button>
+                </form>
+            </div>
+        </div>
+        <div class="review col-7 mx-auto">
+            <hr>
+            <h4>Leave a review</h4>
+            <form action="/listing/<%=showEach._id%>/reviews" method="post" class="needs-validation" novalidate>
+                <div class="rating mt-3">
+                    <label for="rating" class="form-label">Rating</label>
+                    <input name="review[rating]" id="rating" type="range" min="1" max="5" class="form-range">
+                    <output for="rating" id="rangeValue"></output>
                 </div>
-                <div class="review col-7">
-                    <hr>
-                    <h4>Leave a review</h4>
-                    <form action="/listing/<%=showEach._id%>/reviews" method="post" class="needs-validation" novalidate>
-                        <div class="rating mt-3">
-                            <label for="rating" class="form-label">Rating</label>
-                            <input name="review[rating]" id="rating" type="range" min="1" max="5" class="form-range">
-                            <output for="rating" id="rangeValue"></output>
+                <div class="comment mt-3 ">
+                    <label for="comment" class="form-label">Comment</label>
+                    <textarea id="comment" class="form-control" name="review[comment]" required></textarea>
+                    <div class="invalid-feedback">Leave a Comment</div>
+                </div>
+                <button class="btn btn-warning mt-5">Submit</button>
+            </form>
+            <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                All Reviews
+            </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable row modal-xl">
+                    <div class="modal-content col-md-12">
+                        <div class="modal-header review-title">
+                            <h1 class="modal-title fs-5 " id="exampleModal">Reviews</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <div class="comment mt-3 ">
-                            <label for="comment" class="form-label">Comment</label>
-                            <textarea id="comment" class="form-control" name="review[comment]" required></textarea>
-                            <div class="invalid-feedback">Leave a Comment</div>
-                        </div>
-                        <button class="btn btn-warning mt-5">Submit</button>
-                    </form>
-                    <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">
-                        All Reviews
-                    </button>
-                    <div class="modal fade" id="exampleModal" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable row modal-xl">
-                            <div class="modal-content col-md-12">
-                                <div class="modal-header review-title">
-                                    <h1 class="modal-title fs-5 " id="exampleModal">Reviews</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                </div>
-                                <div class="modal-body row g-3">
-                                    <%for(review of showEach.reviews){%>
-                                        <div class="col-12 col-md-6 col-lg-4 mb-3">
-                                            <div class="card h-100">
-                                                <div class="card-body">
-                                                    <p class="card-text">
-                                                        <%=review.comment%>
-                                                    </p>
-                                                    <p class="card-text">
-                                                        <%=review.rating%> stars
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                <form action="/listing/<%=showEach._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
-                                                    <button class="delete-review btn btn-outline-danger border-white"><i class="fa-solid fa-trash-arrow-up"></i></button>
-                                                </form>
-                                                </div>
-                                            </div>
+                        <div class="modal-body row g-3">
+                            <%for(review of showEach.reviews){%>
+                                <div class="col-12 col-md-6 col-lg-4 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                <%=review.comment%>
+                                            </p>
+                                            <p class="card-text">
+                                                <%=review.rating%> stars
+                                            </p>
                                         </div>
-                                    <%}%>
+                                        <div>
+                                        <form action="/listing/<%=showEach._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                                            <button class="delete-review btn btn-outline-danger border-white"><i class="fa-solid fa-trash-arrow-up"></i></button>
+                                        </form>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            <%}%>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>

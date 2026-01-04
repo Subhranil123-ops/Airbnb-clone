@@ -1,4 +1,4 @@
-<%if(success.length){%>
+<%if(typeof success!="undefined" && success.length){%>
     <div class="alert alert-success alert-dismissible col-6 mx-auto" role="alert">
         <div class="d-flex align-items-center pe-4">
             <i class="fa-regular fa-circle-check"></i>
@@ -10,7 +10,7 @@
     </div>
 
     <%}%>
-        <%if(failure.length){%>
+        <%if(typeof failure!="undefined" && failure.length){%>
             <div class="alert alert-danger alert-dismissible col-6 mx-auto" role="alert">
                 <div class="d-flex align-items-center pe-4">
                 <i class="fa-solid fa-triangle-exclamation "></i>

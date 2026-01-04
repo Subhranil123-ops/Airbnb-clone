@@ -18,8 +18,20 @@ const reviewSchema=Joi.object({
        rating:Joi.number().required().min(1).max(5),
        createdAt:Joi.date().allow("",null)
     }).required()
+});
+const signSchema=Joi.object({
+    sign:Joi.object({
+        username:Joi.string().required(),
+        email:Joi.string().required(),
+        password:Joi.string()
+        .required()
+        .min(8)
+        .pattern(/[0-9]/)
+        .pattern(/[!@#$%^&*]/)
+    }).required()
 })
 module.exports={
     listingSchema,
-    reviewSchema
+    reviewSchema,
+    signSchema
 };

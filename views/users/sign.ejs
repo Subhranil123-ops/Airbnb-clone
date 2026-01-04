@@ -1,0 +1,26 @@
+<%layout("layouts/boilerplate")%>;
+    <%title="Sign Up"%>
+    <div class="row">
+        <div class="col-7 mx-auto">
+    
+<form action="/users/sign" method="post" novalidate class="needs-validation">
+<div class="mb-3">
+<label for="username" class="form-label">Username</label>
+<input id="username" type="text" class="form-control" name="sign[username]" required>
+<div class="valid-feedback">Looks Good !!</div>
+<div class="invalid-feedback">Username Please </div>
+</div>
+<div class="mb-3">
+<label for="email" class="form-label">Email Id</label>
+<input id="email" type="text" class="form-control" name="sign[email]" required>
+<div class="invalid-feedback">Enter a valid Email only </div>
+</div>
+<div class="mb-3">
+<label for="password" class="form-label">Password</label>
+<input id="password" type="text" class="form-control" name="sign[password]" required>
+<div class="invalid-feedback">Enter a valid Password</div>
+</div>
+<button class="btn btn-danger m-3">Sign Up</button>
+</form>
+</div>
+</div>

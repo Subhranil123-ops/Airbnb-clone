@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 // requiring routes
 const listings=require("./routes/listing");
 const reviews=require("./routes/review");
-
+const users=require("./routes/user")
 // mongoose connection
 async function main() {
     await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
@@ -20,8 +20,7 @@ main()
     .catch((err) => {
         console.log(err);
     });
-    // user models
-const User=require("./model/user.js");
+
 // ejs
 const path = require("path");
 app.set("view engine", "ejs");
@@ -62,30 +61,42 @@ app.use(session(sessionOptions));
 // flash
 const flash=require("connect-flash");
 app.use(flash());
-
 app.use((req,res,next)=>{
     res.locals.success=req.flash("success");
     res.locals.failure=req.flash("failure");
     next();
 });
+// passport
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(
+    async (username, password, done) => {
+        try {
+            let user = await User.findOne({ username: username });
+            if (!user) return done(null, false,{ message: "Invalid username" });
+            const hash = user.password;
+            const match = await bcrypt.compare(password, hash);
+            if (!match) {
+                return done(null, false,{ message: "Invalid password" })
+            } if (user && match) done(null, user);
+        }
+        catch(err){
+            return done(err);
+        } 
+    }
+))
+
+
+
+
 
 // USING ROUTES
 app.use("/listing",listings);
 app.use("/listing/:listingId/reviews",reviews);
+app.use("/users",users);
 
-// sign up routes
-
-// sign in page
-app.get("/sign",async(req,res)=>{
-    res.render("sign.ejs");
-});
-// post form
-app.post("/sign/userId",async(req,res)=>{
-    console.log(req.body.user);
-    const newUser=new User(req.body.user)
-    await newUser.save();
-    res.send("ok");
-});
 
 // RUNS WHEN ROUTE IS WRONG
 // app.use((req, res, next) => {
@@ -97,6 +108,10 @@ app.use((err, req, res, next) => {
     console.log(err.name);
     console.log(err.stack);
     let { status = 500, message = "Something went wrong" } = err;
+    if(err.message==='ValidationError: "user.password" length must be at least 8 characters long'){
+        req.flash("failure","Password must be at least 8 characters long and include a special character and a number");
+        return res.redirect("/users/sign");
+    }
     res.status(status).render("error.ejs", { message });
 });
 

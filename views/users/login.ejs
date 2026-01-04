@@ -1,0 +1,17 @@
+<%-layout("layouts/boilerplate")%>
+    <%title="Login"%>
+        <div class="row">
+            <div class="col-7 mx-auto">
+                <form action="/users/login" method="post" novalidate class="needs-validation">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input id="username" type="text" class="form-control" name="login[username]" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input id="password" type="password" class="form-control"name="login[password]" required>
+                    </div>
+                    <button class="btn btn-danger">Continue</button>
+                </form>
+            </div>
+        </div>

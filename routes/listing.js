@@ -3,9 +3,9 @@ const router=express.Router();
 const Air=require("../model/air.js");
 const ExpressError = require("../utils/ExpressError");
 const wrapAsync=require("../utils/wrapAsync");
+
+// Joi schema validations
 const { listingSchema} = require("../schema.js");
-
-
 const validateSchema = (req, res, next) => {
     const result = listingSchema.validate(req.body);
     if (result.error) {
