@@ -14,21 +14,20 @@
             <p><%=showEach.country%></p>   
             <%if(authenticated && authenticated.username===showEach.owner.username){%>
             <div class="d-flex justify-content-evenly">
-                
                 <form action="/listing/<%=showEach._id%>/edit">
                     <button class="btn btn-danger">Edit</button>
                 </form>
-                
-                <form action="/listing/<%=showEach._id%>/delete?_method=DELETE" method="POST">
+                <form action="/listing/<%=showEach._id%>?_method=DELETE" method="POST">
                     <button class="btn btn-dark">Delete</button>
                 </form>
-                <%}%>
             </div>
+            <%}%>
         </div>
         <div class="col-7 mx-auto">
+            <%if(authenticated && !showEach.owner.equals(authenticated._id)){%>
             <hr>
             <h4>Leave a review</h4>
-            <form action="/listing/<%=showEach._id%>/reviews" method="post" 
+            <form action="/listing/<%=showEach._id%>" method="post" 
                 class="needs-validation" novalidate>
                 <div class="rating mt-3">
                     <label 
@@ -54,12 +53,12 @@
                     id="comment" 
                     class="form-control" 
                     name="review[comment]" 
-                    required>
-                    </textarea>
+                    required></textarea>
                     <div class="invalid-feedback">Leave a Comment</div>
                 </div>
                 <button class="btn btn-warning mt-5">Submit</button>
             </form>
+        <%}%>
             <button 
             type="button" 
             class="btn btn-danger mt-3" 
@@ -79,6 +78,7 @@
                                 <div class="col-12 col-md-6 col-lg-4 mb-3">
                                     <div class="card h-100">
                                         <div class="card-body">
+                                            <p class="card-text"><%=review.author.username%></p>
                                             <p class="card-text">
                                                 <%=review.comment%>
                                             </p>
@@ -87,9 +87,12 @@
                                             </p>
                                         </div>
                                         <div>
-                                        <form action="/listing/<%=showEach._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                                            
+                                        <%if(authenticated && review.author._id.equals(authenticated._id)){%>    
+                                        <form action="/listing/<%=showEach._id%>/<%=review._id%>?_method=DELETE" method="POST">
                                             <button class="delete-review btn btn-outline-danger border-white"><i class="fa-solid fa-trash-arrow-up"></i></button>
                                         </form>
+                                        <%}%>
                                         </div>
                                     </div>
                                 </div>
