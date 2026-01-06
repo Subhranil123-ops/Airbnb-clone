@@ -12,6 +12,8 @@ main()
         console.log(err);
     });
 let insertData = async () => {
+    await Air.deleteMany({});
+    data.data=data.data.map(el=>({...el,owner:"695c02d7fd8bc7326570b2f0"}))
     await Air.insertMany(data.data);
     console.log("data was initialised")
 };

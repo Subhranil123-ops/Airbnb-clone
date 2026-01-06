@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Review=require("./review");
+const User=require("./user.js");
 const schema = new mongoose.Schema({
     title: {
         type: String,
@@ -29,7 +30,11 @@ const schema = new mongoose.Schema({
     reviews:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Review"
-    }]
+    }],
+    owner:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    }
 });
 schema.pre("findOneAndDelete",async()=>console.log("PRE IS WORKING"));
 schema.post("findOneAndDelete",async(listing)=>{

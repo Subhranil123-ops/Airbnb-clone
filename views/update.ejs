@@ -5,11 +5,16 @@
         
           <div class="new row">
             <div class="col-md-7 mx-auto">
+
               <h1>Add New Villas</h1>
-              <form action="/listing" method="post" novalidate class="needs-validation"></form>
+
+              <form action="/listing" method="post" 
+              novalidate class="needs-validation">
+         
               <!-- title -->
               <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
+                <label for="title" 
+                class="form-label">Title</label>
                 <input id="title" type="text" class="form-control" placeholder="Give your space a catchy title"
                   name="listing[title]" required>
                 <div class="invalid-feedback">Give a title</div>
@@ -30,6 +35,7 @@
                 <input id="image" type="text" class="form-control" placeholder="Paste your link here"
                   name="listing[image][url]">
               </div>
+
               <div class="row">
                 <!-- price -->
                 <div class="mb-3 col-md-5">
@@ -40,7 +46,6 @@
                       placeholder="Enter the Price" required>
                     <div class="invalid-feedback">Enter a valid Price</div>
                   </div>
-
                 </div>
 
                 <!-- country -->
@@ -50,17 +55,18 @@
                     placeholder="Enter the Country" required>
                   <div class="invalid-feedback">Enter a valid country</div>
                 </div>
-
               </div>
-              <!-- location -->
-              <div class="mb-5">
+
+                <!-- location -->
+                <div class="mb-5">
                 <label for="location" class="form-label">Location</label>
                 <input id="location" name="listing[location]" type="text" class="form-control"
                   placeholder="Enter the Location" required>
                 <div class="invalid-feedback">Location should be valid</div>
               </div>
-
               <button class="btn btn-danger">Add New Listing</button>
+              </form>
+
             </div>
           </div>
-        </form>
+        

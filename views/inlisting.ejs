@@ -7,46 +7,65 @@
                 <i><%=showEach.title.toUpperCase()%></i>
                 </h3>
             <img src="<%=showEach.image.url%>" alt="" class="img-fluid showimg">
-            <i>
-                <p style="font-weight: 700;font-size: larger;">
-                    <%=showEach.description%>
-                </p>
-            </i>
+            <p><i>Owned by <b><%=showEach.owner.username%></b></i></p>
+            <p class="fs-4 fw-bold"><i><%=showEach.description%></i></p>
             <p>₹<%=showEach.price.toLocaleString("en-IN")%>/night</p>
-            <p>
-                <%=showEach.location%>
-            </p>
-            <p>
-                <%=showEach.country%>
-            </p>
-            <div class="button">
+            <p><%=showEach.location%></p>
+            <p><%=showEach.country%></p>   
+            <%if(authenticated && authenticated.username===showEach.owner.username){%>
+            <div class="d-flex justify-content-evenly">
+                
                 <form action="/listing/<%=showEach._id%>/edit">
                     <button class="btn btn-danger">Edit</button>
-                </form><br>
+                </form>
+                
                 <form action="/listing/<%=showEach._id%>/delete?_method=DELETE" method="POST">
                     <button class="btn btn-dark">Delete</button>
                 </form>
+                <%}%>
             </div>
         </div>
-        <div class="review col-7 mx-auto">
+        <div class="col-7 mx-auto">
             <hr>
             <h4>Leave a review</h4>
-            <form action="/listing/<%=showEach._id%>/reviews" method="post" class="needs-validation" novalidate>
+            <form action="/listing/<%=showEach._id%>/reviews" method="post" 
+                class="needs-validation" novalidate>
                 <div class="rating mt-3">
-                    <label for="rating" class="form-label">Rating</label>
-                    <input name="review[rating]" id="rating" type="range" min="1" max="5" class="form-range">
+                    <label 
+                    for="rating" 
+                    class="form-label">
+                    Rating
+                    </label>
+                    <input 
+                    name="review[rating]" 
+                    id="rating" 
+                    type="range" 
+                    min="1" max="5" 
+                    class="form-range">
                     <output for="rating" id="rangeValue"></output>
                 </div>
                 <div class="comment mt-3 ">
-                    <label for="comment" class="form-label">Comment</label>
-                    <textarea id="comment" class="form-control" name="review[comment]" required></textarea>
+                    <label 
+                    for="comment" 
+                    class="form-label">
+                    Comment
+                    </label>
+                    <textarea 
+                    id="comment" 
+                    class="form-control" 
+                    name="review[comment]" 
+                    required>
+                    </textarea>
                     <div class="invalid-feedback">Leave a Comment</div>
                 </div>
                 <button class="btn btn-warning mt-5">Submit</button>
             </form>
-            <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
-                All Reviews
+            <button 
+            type="button" 
+            class="btn btn-danger mt-3" 
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal">
+            All Reviews
             </button>
             <div class="modal fade" id="exampleModal" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable row modal-xl">

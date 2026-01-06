@@ -30,6 +30,7 @@ app.set("views", path.join(__dirname, "views"));
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 
+
 // boilerplate
 const ejsMate = require("ejs-mate");
 app.engine("ejs", ejsMate);
@@ -58,36 +59,61 @@ const sessionOptions={
 }
 app.use(session(sessionOptions));
 
+// passport
+const passport = require("passport");
+const {Strategy:LocalStrategy} = require("passport-local");
+const bcrypt=require("bcrypt");
+const User = require("./model/user");
+app.use(passport.initialize());
+app.use(passport.session());
+
 // flash
 const flash=require("connect-flash");
 app.use(flash());
 app.use((req,res,next)=>{
     res.locals.success=req.flash("success");
     res.locals.failure=req.flash("failure");
+    res.locals.authenticated=req.user;
     next();
 });
-// passport
-const passport = require("passport");
-const LocalStrategy = require("passport-local");
-app.use(passport.initialize());
-app.use(passport.session());
+
+
+// Customized usernameField and passwordField to match the nested
+// form input names instead of Passport's default fields.
+
 passport.use(new LocalStrategy(
+    {
+        usernameField:"login[username]",
+        passwordField:"login[password]"
+    },
     async (username, password, done) => {
         try {
-            let user = await User.findOne({ username: username });
-            if (!user) return done(null, false,{ message: "Invalid username" });
+            let user = await User.findOne({ username});
+            if (!user) return done(null, false);
             const hash = user.password;
             const match = await bcrypt.compare(password, hash);
             if (!match) {
-                return done(null, false,{ message: "Invalid password" })
-            } if (user && match) done(null, user);
+                return done(null, false)
+            } if (user && match) return done(null, user);
         }
         catch(err){
             return done(err);
         } 
     }
-))
-
+));
+passport.serializeUser((user,done)=>{
+    done(null,user._id);
+});
+passport.deserializeUser(async(id,done)=>{
+    try{
+    const user=await User.findById(id);
+    if(user) return done(null,user);
+    else return done(null,false);
+    }
+    catch(err){
+        return done(err);
+    }
+})
 
 
 
