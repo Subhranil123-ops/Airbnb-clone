@@ -1,6 +1,6 @@
 <%layout("layouts/boilerplate")%>
 <%title="Each Home"%>
-<%css="css/detail.css"%>
+<%css="/css/detail.css"%>
     <div class="row ">
         <div class="col-7 mx-auto">
             <h3 style="font-weight: 800;">
@@ -87,7 +87,6 @@
                                             </p>
                                         </div>
                                         <div>
-                                            
                                         <%if(authenticated && review.author._id.equals(authenticated._id)){%>    
                                         <form action="/listing/<%=showEach._id%>/<%=review._id%>?_method=DELETE" method="POST">
                                             <button class="delete-review btn btn-outline-danger border-white"><i class="fa-solid fa-trash-arrow-up"></i></button>
@@ -101,5 +100,42 @@
                     </div>
                 </div>
             </div>
+            <div class="location">
+                <p>Where you'll be</p>
+            <div id="map"></div>
+            </div>
         </div>
+        
     </div>
+
+    <script>
+        let title="<%=showEach.title%>";
+        let coordinates=<%-JSON.stringify(showEach.geometry.coordinates)%>;
+        let mapToken="<%=process.env.MAPBOX_TOKEN%>"
+    mapboxgl.accessToken=mapToken;
+    const map=new mapboxgl.Map({
+    container:"map",
+    style: 'mapbox://styles/mapbox/streets-v12',
+    projection:"globe",
+    zoom: 7,
+    center: [coordinates[0],coordinates[1]]
+})
+
+const marker = new mapboxgl.Marker({
+    color: '#FF0000', // set marker color
+    scale: 1.5        // scale the marker size
+  })
+  .setLngLat(coordinates)
+  .addTo(map);
+map.addControl(new mapboxgl.NavigationControl());
+map.scrollZoom.disable();
+map.on('style.load', () => {
+        map.setFog({})
+});
+
+const popup = new mapboxgl.Popup()
+  .setHTML(`<h3>${title}</h3>`);
+
+marker.setPopup(popup);
+
+    </script>

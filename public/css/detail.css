@@ -5,5 +5,8 @@
     padding: 0.6rem 0rem;
     object-fit: cover;
 }
-
+#map{
+    height:25rem;
+    width:100%
+}
 

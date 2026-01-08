@@ -2,7 +2,8 @@ const Air = require("./model/air.js");
 const Review = require("./model/review.js");
 const { listingSchema, reviewSchema, signSchema } = require("./schema.js");
 const ExpressError = require("./utils/ExpressError");
-
+const geocodeService = require("@mapbox/mapbox-sdk/services/geocoding");
+const geocodeClient = geocodeService({ accessToken: process.env.MAPBOX_TOKEN });
 // for login
 module.exports.isLoggedin = ((req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -16,7 +17,6 @@ module.exports.isLoggedin = ((req, res, next) => {
 module.exports.saveRedirect = ((req, res, next) => {
     if (req.session.redirectUrl) {
         res.locals.redirect = req.session.redirectUrl;
-        console.log(res.locals.redirect);
     }
     next();
 });
@@ -57,7 +57,7 @@ module.exports.validateSchema = (req, res, next) => {
 
 // joi vallidation for reviews
 module.exports.validateReview = async (req, res, next) => {
-    let data=reviewSchema.validate(req.body);
+    let data = reviewSchema.validate(req.body);
     if (data.error) {
         return next(new ExpressError(400, data.error));
     } else {
@@ -71,4 +71,27 @@ module.exports.validateUser = ((req, res, next) => {
     if (result.error) {
         return next(new ExpressError(400, result.error));
     } else next();
+})
+
+// to validate the locations 
+module.exports.validateLocation = (async (req, res, next) => {
+    const results = await geocodeClient
+        .forwardGeocode({
+            query: `${req.body.listing.location},${req.body.listing.country}`,
+            limit: 1
+        })
+        .send();
+    let feature = results.body.features[0];
+    let { relevance, place_type } = feature;
+    if ((relevance > 0.9) &&
+        (place_type[0] === "place" ||
+            place_type[0] === "region" ||
+            place_type[0] === "locality")) {
+        let geometry = results.body.features[0].geometry;
+        req.geometry = geometry;
+        next();
+    } else {
+        req.flash("failure", "Location or country doesn't exist");
+        res.redirect("/listing/new");
+    }
 })

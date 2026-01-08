@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../model/review");
 const ExpressError = require("../utils/ExpressError");
 const wrapAsync = require("../utils/wrapAsync");
-const { isLoggedin, isOwner, validateSchema } = require("../middleware.js");
+const { isLoggedin, isOwner, validateSchema, validateLocation } = require("../middleware.js");
 const listingController = require("../controllers/listings.js");
 
 router
@@ -12,9 +12,10 @@ router
     .post(
         isLoggedin,
         validateSchema,
+        validateLocation,
         wrapAsync(listingController.createNewListing)
     )
-    
+
 router.get(
     "/new",
     isLoggedin,
@@ -26,6 +27,7 @@ router
     .patch(isLoggedin,
         isOwner,
         validateSchema,
+        validateLocation,
         wrapAsync(listingController.editListing)
     )
     .delete(
