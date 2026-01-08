@@ -24,7 +24,7 @@ module.exports.showListing = async (req, res, next) => {
         req.flash("failure", "listing is unavailable");
         return res.redirect("/listing");
     }
-    res.render("inlisting.ejs", { showEach });
+    res.render("inlisting.ejs", { showEach,mapToken:process.env.MAPBOX_TOKEN });
 }
 
 module.exports.createNewListing = async (req, res, next) => {
@@ -33,7 +33,6 @@ module.exports.createNewListing = async (req, res, next) => {
     newListing.geometry = req.geometry;
     console.log("express : ", req.geometry);
     await newListing.save();
-    console.log(newListing);
     req.flash("success", "New listing is added");
     res.redirect("/listing");
 }

@@ -5,7 +5,7 @@ const ExpressError = require("../utils/ExpressError");
 const wrapAsync = require("../utils/wrapAsync");
 const { isLoggedin, isOwner, validateSchema, validateLocation } = require("../middleware.js");
 const listingController = require("../controllers/listings.js");
-
+const{syncListingOnCreate}=require("../services/algolia.js");
 router
     .route("/")
     .get(wrapAsync(listingController.allListings))

@@ -7,6 +7,24 @@ const listings = require("./routes/listing");
 const reviews = require("./routes/review");
 const users = require("./routes/user");
 const ExpressError = require("./utils/ExpressError");
+
+// SEARCH
+const search=require("./services/algolia.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 async function main() {
     await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
 }
