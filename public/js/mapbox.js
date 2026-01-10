@@ -8,8 +8,6 @@ const map = new mapboxgl.Map({
     zoom: 15.27,
     pitch: 42,
     bearing: -50,
-    minZoom: 15,
-    maxZoom: 16,
     center: [coordinates[0], coordinates[1]]
 });
 
@@ -26,7 +24,7 @@ const popup = new mapboxgl.Popup()
 // MARKER
 const marker = new mapboxgl.Marker(el, {
     color: '#FF0000', // set marker color
-    scale: 1.5        // scale the marker size
+    scale: 2       // scale the marker size
 })
     .setLngLat(coordinates)
     .addTo(map)
@@ -34,7 +32,7 @@ const marker = new mapboxgl.Marker(el, {
 
 // MAP CONTROLS
 map.addControl(new mapboxgl.NavigationControl());
-map.scrollZoom.disable();
+
 
 
 

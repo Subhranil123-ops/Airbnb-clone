@@ -1,0 +1,20 @@
+<%layout("layouts/boilerplate")%>
+<%title="Search Results"%>
+<%css="/css/listings.css"%>
+   <div class="houses row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
+  <% for( let list of listings) { %>
+    <div class="col mb-4">
+      <div class="mycard">
+        <a href="/listing/<%=list._id%>"><img class="listing" src="<%=list.media.image.url%>" alt=""></a>
+        <b>
+          <p class="title">
+            <%=list.title%>
+          </p>
+        </b>
+        <p>₹<%=list.price.toLocaleString("en-IN")%>/night &nbsp; <i class="gst">+18%GST </i></p>
+      </div>
+    </div>
+    <%}%>
+</div>
+</body>
+</html>

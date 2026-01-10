@@ -1,23 +1,18 @@
 
-.head{
-    margin-left: 60px;
-}
+
 .listing{
 height: 250px;
 width: 100%;
-border-radius: 20px;
+border-radius: 1.5rem;
 }
 .mycard{
     display: flex;
     flex-direction: column;
+    border-radius: 1.5rem;
 }
-.listing:hover{
-    opacity: 0.2;
+.mycard:hover{
+    box-shadow: 1rem 1rem 2rem 1.5rem rgb(177, 177, 177);
 }
 p{margin: 10px!important;
     line-height: 0.05;
-}
-.houses{
-
-margin: 0 auto ;
 }

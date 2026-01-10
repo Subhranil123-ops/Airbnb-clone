@@ -9,7 +9,7 @@
               <h1>Add New Villas</h1>
 
               <form action="/listing" method="post" 
-              novalidate class="needs-validation">
+              novalidate class="needs-validation" enctype="multipart/form-data">
          
               <!-- title -->
               <div class="mb-3">
@@ -29,11 +29,17 @@
                 <div class="invalid-feedback">Type a breif description</div>
               </div>
 
-              <!-- image -->
-              <div class="mb-3">
+            <!-- image -->
+            <div class="mb-3">
                 <label for="image" class="form-label">Image link</label>
-                <input id="image" type="text" class="form-control" placeholder="Paste your link here"
-                  name="listing[image][url]">
+                <input id="image" name="image" type="file" class="form-control"
+                    required>
+            </div>
+
+              <div class="mb-3">
+                <label for="model" class="form-label">Model link</label>
+                <input id="model" type="file" class="form-control" placeholder="Paste your link here"
+                  name="model">
               </div>
 
               <div class="row">

@@ -5,7 +5,7 @@
         <div class="col-7 mx-auto">
             <h1>Make Changes to Your Villa</h1>
             <form action="/listing/<%=showEach._id%>?_method=PATCH" method="POST" novalidate
-                class="needs-validation">
+                class="needs-validation" enctype="multipart/form-data">
 
             <!-- title -->
             <div class="mb-3">
@@ -36,9 +36,15 @@
             <!-- image -->
             <div class="mb-3">
                 <label for="image" class="form-label">Image link</label>
-                <input id="image" name="listing[image][url]" type="text" class="form-control"
-                    value="<%=showEach.image.url%>" required>
+                <input id="image" name="image" type="file" class="form-control"
+                    required>
             </div>
+
+              <div class="mb-3">
+                <label for="model" class="form-label">Model link</label>
+                <input id="model" type="file" class="form-control" placeholder="Paste your link here"
+                  name="model">
+              </div>
 
             <div class="row">
                 <!-- price -->

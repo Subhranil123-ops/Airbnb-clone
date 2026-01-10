@@ -7,22 +7,7 @@ const listings = require("./routes/listing");
 const reviews = require("./routes/review");
 const users = require("./routes/user");
 const ExpressError = require("./utils/ExpressError");
-
-// SEARCH
-const search=require("./services/algolia.js");
-
-
-
-
-
-
-
-
-
-
-
-
-
+const search=require("./routes/search.js");
 
 
 async function main() {
@@ -124,7 +109,7 @@ passport.deserializeUser(async (id, done) => {
 app.use("/listing", listings);
 app.use("/listing/:listingId", reviews);
 app.use("/users", users);
-
+app.use("/search",search);
 
 // RUNS WHEN ROUTE IS WRONG
 // app.use((req, res, next) => {

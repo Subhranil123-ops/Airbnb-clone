@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
-const Review=require("./review");
-const User=require("./user.js");
+const Review = require("./review");
+const User = require("./user.js");
+const appId = process.env.ALGOLIA_APPLICATION_ID;
+const key = process.env.ALGOLIA_WRITE_API_KEY;
+const { algoliasearch } = require("algoliasearch");
+const client = algoliasearch(appId, key);
 const schema = new mongoose.Schema({
     title: {
         type: String,
@@ -9,13 +13,20 @@ const schema = new mongoose.Schema({
     description: {
         type: String
     },
-    image: {
-        filename: {
-            type: String
+    media: {
+        image: {
+            filename: {
+                type: String
+            },
+            url: {
+                type: String,
+            }
         },
-        url: {
-            type: String,
-            default: "https://images.unsplash.com/photo-1505691938895-1758d7feb511"
+        model:{
+            filename:String,
+            url:{
+                type:String
+            }
         }
     },
     price: {
@@ -27,33 +38,66 @@ const schema = new mongoose.Schema({
     country: {
         type: String
     },
-    reviews:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Review"
+    reviews: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Review"
     }],
-    owner:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     },
-    geometry:{
-        type:{
-            type:String,
-            enum:['Point'],
-            required:true
+    geometry: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
         },
-        coordinates:{
-            type:[Number],
-            required:true
+        coordinates: {
+            type: [Number],
+            required: true
         }
     }
 });
-schema.pre("findOneAndDelete",async()=>console.log("PRE IS WORKING"));
-schema.post("findOneAndDelete",async(listing)=>{
-    if(listing.reviews.length){
-        await Review.deleteMany({
-            _id:{$in:listing.reviews}
-        });
+schema.pre("findOneAndDelete", () => console.log("PRE IS WORKING FOR DELITING A LISTING"));
+schema.post("findOneAndDelete", async (listing) => {
+    try {
+        if (listing.reviews.length) {
+            await Review.deleteMany({
+                _id: { $in: listing.reviews }
+            });
+        }
     }
-    });
+    catch (e) {
+        console.log("error in post delete :", e);
+    }
+});
+let syncAlgoliaData = async (listing) => {
+    try {
+        const records =
+        {
+            objectID: listing._id.toString(),
+            title: listing.title,
+            country: listing.country,
+            location: listing.location,
+            price: listing.price
+        }
+            ;
+        let response = await client.saveObject({
+            indexName: "listing",
+            body: records
+        });
+        // await client.waitForTask({
+        //     indexName: "listings",
+        //     taskID: response.taskID
+        // });
+    }
+    catch (e) {
+        console.log("error in post : ", e);
+    }
+}
+schema.pre("save", () => console.log("PRE WORKING FOR SAVING A NEW LISTING "));
+schema.post("save", syncAlgoliaData);
+schema.pre("findOneAndUpdate", () => console.log("PRE WORKING FOR SAVING AN UPDATED LISTING "));
+schema.post("findOneAndUpdate", syncAlgoliaData);
 const Air = mongoose.model("Air", schema);
 module.exports = Air;

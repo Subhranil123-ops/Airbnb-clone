@@ -1,24 +1,17 @@
 const appId = process.env.ALGOLIA_APPLICATION_ID;
-const key = process.env.ALGOLIA_API_KEY;
-const algoliasearch = require("algoliasearch");
+const key = process.env.ALGOLIA_WRITE_API_KEY;
+const { algoliasearch } = require("algoliasearch");
 const client = algoliasearch(appId, key);
-const index=client.initIndex("listing");
-console.log(index);
-const Air = require("../model/air.js");
 const wrapAsync = require("../utils/wrapAsync.js");
-module.exports.syncListingOnCreate = (wrapAsync(async (req, res, next) => {
-    let listing = req.body.listing;
-    const records = [
-        { objectID: listing._id.toString(),
-        title: listing.title,
-         country: listing.country ,
-         location: listing.location ,
-         price: listing.price 
-        }
-    ];
-    let response = await client.saveObjects({
+module.exports.syncListingOnDelete = (wrapAsync(async (req, res, next) => {
+    let { listingId } = req.params;
+    let response = await client.deleteObject({
         indexName: "listing",
-        objects: records
+        objectID: listingId
     });
-    console.log(response);
+    // await client.waitForTask({
+    //     indexName: "listings",
+    //     taskID: response.taskID
+    // });
+    next();
 }));

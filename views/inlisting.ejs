@@ -5,7 +5,7 @@
     let title = "<%=showEach.title%>";
     let coordinates =<%-JSON.stringify(showEach.geometry.coordinates)%>;
     const mapToken="<%=mapToken%>";
-    const image="<%showEach.image.url%>";
+    const image="<%=showEach.media.image.url%>";
 </script>
 <div class="row ">
     <div class="col-7 mx-auto">
@@ -14,7 +14,7 @@
                 <%=showEach.title.toUpperCase()%>
             </i>
         </h3>
-        <img src="<%=showEach.image.url%>" alt="" class="img-fluid showimg">
+        <model-viewer src="<%=showEach.media.model.url%>" alt="" class="img-fluid showimg">
         <p><i>Owned by <b>
                     <%=showEach.owner.username%>
                 </b></i></p>
