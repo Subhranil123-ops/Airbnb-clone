@@ -1,8 +1,8 @@
 .showimg{
-    max-height: 31.5rem;
+    max-height: 50rem;
     width: 100%;
     border-radius: 1.25rem;
-    padding: 0.6rem 0rem;
+    margin: auto;
     object-fit: cover;
 }
 #map{

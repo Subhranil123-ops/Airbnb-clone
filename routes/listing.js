@@ -5,15 +5,15 @@ const ExpressError = require("../utils/ExpressError");
 const wrapAsync = require("../utils/wrapAsync");
 const { isLoggedin, isOwner, validateSchema, validateLocation } = require("../middleware.js");
 const listingController = require("../controllers/listings.js");
-const{syncListingOnDelete}=require("../services/algolia.js");
-const {uploadFileMulter}=require("../services/media.js");
+const { syncListingOnDelete } = require("../services/algolia.js");
+const { uploadFileMulter } = require("../services/media.js");
 router
     .route("/")
     .get(wrapAsync(listingController.allListings))
     .post(
         isLoggedin,
-        validateSchema,
         uploadFileMulter,
+        validateSchema,
         validateLocation,
         wrapAsync(listingController.createNewListing)
     )
@@ -28,8 +28,8 @@ router
     .get(wrapAsync(listingController.showListing))
     .patch(isLoggedin,
         isOwner,
-        validateSchema,
         uploadFileMulter,
+        validateSchema,
         validateLocation,
         wrapAsync(listingController.editListing)
     )

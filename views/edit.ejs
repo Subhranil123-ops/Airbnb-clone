@@ -1,84 +1,141 @@
 <%layout("layouts/boilerplate")%>
-<%title="Update" %>
-<%css="/css/update.css"%>
-    <div class="mb-5 mt-5 row">
-        <div class="col-7 mx-auto">
-            <h1>Make Changes to Your Villa</h1>
-            <form action="/listing/<%=showEach._id%>?_method=PATCH" method="POST" novalidate
-                class="needs-validation" enctype="multipart/form-data">
+    <%title="Update" %>
+        <%css="/css/update.css"%>
+            <div class="mb-5 mt-5 row">
+                <div class="col-7 mx-auto">
+                    <h1>Make Changes to Your Villa</h1>
+                    <form
+                        action="/listing/<%=showEach._id%>?_method=PATCH"
+                        method="POST"
+                        novalidate
+                        class="needs-validation"
+                        enctype="multipart/form-data"
+                    >
 
-            <!-- title -->
-            <div class="mb-3">
-                <label 
-                    for="title" 
-                    class="form-label">
-                    Title
-                </label>
-                <input 
-                    id="title" 
-                    type="text" 
-                    class="form-control" 
-                    value="<%=showEach.title%>" 
-                    name="listing[title]"
-                    required>
-                <div class="invalid-feedback">Give a title</div>
-                <div class="valid-feedback">Title looks good!</div>
-            </div>
+                        <!-- title -->
+                        <div class="mb-3">
+                            <label
+                                for="title"
+                                class="form-label"
+                            >
+                                Title
+                            </label>
+                            <input
+                                id="title"
+                                type="text"
+                                class="form-control"
+                                value="<%=showEach.title%>"
+                                name="listing[title]"
+                                required
+                            >
+                            <div class="invalid-feedback">Give a title</div>
+                            <div class="valid-feedback">Title looks good!</div>
+                        </div>
 
-            <!-- description -->
-            <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea id="description" class="form-control" name="listing[description]"
-                    required><%=showEach.description%></textarea>
-                <div class="invalid-feedback">Type a breif description</div>
-            </div>
+                        <!-- description -->
+                        <div class="mb-3">
+                            <label
+                                for="description"
+                                class="form-label"
+                            >Description</label>
+                            <textarea
+                                id="description"
+                                class="form-control"
+                                name="listing[description]"
+                                required
+                            ><%=showEach.description%></textarea>
+                            <div class="invalid-feedback">Type a breif description</div>
+                        </div>
 
-            <!-- image -->
-            <div class="mb-3">
-                <label for="image" class="form-label">Image link</label>
-                <input id="image" name="image" type="file" class="form-control"
-                    required>
-            </div>
+                        <!-- image -->
+                        <div class="mb-3">
+                            <label
+                                for="image"
+                                class="form-label"
+                            >Image link</label>
+                            <input
+                                id="image"
+                                name="image"
+                                type="file"
+                                class="form-control"
+                            >
+                        </div>
 
-              <div class="mb-3">
-                <label for="model" class="form-label">Model link</label>
-                <input id="model" type="file" class="form-control" placeholder="Paste your link here"
-                  name="model">
-              </div>
+                        <div class="mb-3">
+                            <label
+                                for="model"
+                                class="form-label"
+                            >Model link</label>
+                            <input
+                                id="model"
+                                type="file"
+                                class="form-control"
+                                placeholder="Paste your link here"
+                                name="model"
+                            >
+                        </div>
 
-            <div class="row">
-                <!-- price -->
-                <div class="mb-3 col-md-4">
-                    <label for="price" class="form-label">Price</label>
-                    <div class="input-group">
-                        <span class="input-group-text">₹</span>
-                        <input id="price" name="listing[price]"  class="form-control"
-                            value="<%=showEach.price%>" required>
-                    </div>
-                    <div class="invalid-feedback">Enter a valid Price</div>
+                        <div class="row">
+                            <!-- price -->
+                            <div class="mb-3 col-md-4">
+                                <label
+                                    for="price"
+                                    class="form-label"
+                                >Price</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">₹</span>
+                                    <input
+                                        id="price"
+                                        name="listing[price]"
+                                        class="form-control"
+                                        value="<%=showEach.price%>"
+                                        required
+                                    >
+                                </div>
+                                <div class="invalid-feedback">Enter a valid Price</div>
+                            </div>
+
+                            <!-- country -->
+                            <div class="mb-3 col-md-8">
+                                <label
+                                    for="country"
+                                    class="form-label"
+                                >Country</label>
+                                <input
+                                    id="country"
+                                    name="listing[country]"
+                                    type="text"
+                                    class="form-control"
+                                    value="<%=showEach.country%>"
+                                    required
+                                >
+                                <div class="invalid-feedback">Enter a valid country</div>
+                            </div>
+                        </div>
+
+                        <!-- location -->
+                        <div class="mb-3">
+
+                            <label
+                                for="location"
+                                class="form-label"
+                            >Location</label>
+                            <input
+                                id="location"
+                                name="listing[location]"
+                                type="text"
+                                class="form-control"
+                                value="<%=showEach.location%>"
+                                required
+                            >
+                            <div class="invalid-feedback">Location should be valid</div>
+
+                        </div>
+                        <button class="btn btn-danger">Make changes</button><br><br>
+                    </form>
+                    <a
+                        href="/listing/<%=showEach._id%>"
+                        class="backListing"
+                    ><i class="fa-regular fa-circle-left"></i><span class="btl">Back to listing</span></a>
                 </div>
-
-                <!-- country -->
-                <div class="mb-3 col-md-8">
-                    <label for="country" class="form-label">Country</label>
-                    <input id="country" name="listing[country]" type="text" class="form-control"
-                        value="<%=showEach.country%>" required>
-                    <div class="invalid-feedback">Enter a valid country</div>
-                </div>
             </div>
-
-            <!-- location -->
-            <div class="mb-3">
-
-                <label for="location" class="form-label">Location</label>
-                <input id="location" name="listing[location]" type="text" class="form-control"
-                    value="<%=showEach.location%>" required>
-                <div class="invalid-feedback">Location should be valid</div>
-
-            </div>
-            <button class="btn btn-danger">Make changes</button><br><br>
-            </form>
-            <a href="/listing/<%=showEach._id%>" class="backListing"><i
-                    class="fa-regular fa-circle-left"></i><span class="btl">Back to listing</span></a>
-        </div>
-    </div>

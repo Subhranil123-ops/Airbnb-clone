@@ -9,9 +9,9 @@ const users = require("./routes/user");
 const ExpressError = require("./utils/ExpressError");
 const search=require("./routes/search.js");
 
-
+const atlas=process.env.ATLAS_DB_URL;
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
+    await mongoose.connect(atlas);
 }
 main()
     .then(() => {
@@ -44,21 +44,32 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // sessions 
 const session = require("express-session");
+const MongoStore = require('connect-mongo').default;
+
+const store=MongoStore.create({
+    mongoUrl:atlas,
+    crypto:({
+        secret:process.env.SECRET
+    }),
+    touchAfter:24*3600
+});
 const sessionOptions = {
-    secret: "mysecret",
+    store:store,
+    secret:process.env.SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
         expires: Date.now() + 3 * 24 * 60 * 60 * 1000,
         maxAge: 3 * 24 * 60 * 60 * 1000,
         httpOnly: true
     }
 }
+app.use(session(sessionOptions));
 const passport = require("passport");
 const { Strategy: LocalStrategy } = require("passport-local");
 const bcrypt = require("bcrypt");
 const flash = require("connect-flash");
-app.use(session(sessionOptions));
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());

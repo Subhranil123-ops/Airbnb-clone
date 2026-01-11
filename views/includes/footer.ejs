@@ -1,17 +1,75 @@
-<div class=" footer border-top">
-    <div class="container">
-    <div class="row">
-        <div class="col">
-            <ul class="list-unstyled">
-                <li> &copy 2025 Airbnb, Inc.</li>
-                <li><a href="/privacy" class="nav-link privacy">Privacy</a></li>
-                <li><a href="/terms" class="nav-link terms ">Terms</a></li>
-            </ul>
-       </div>
-       <div class="col-auto">
+<style>
+    .footer {
+        min-height: 17rem;
+        border-top-left-radius: 7rem;
+        background-color: #f7f7f7;
+        padding: 3rem;
+        border-top: 1px solid #ddd;
+        align-items: center
+    }
+
+
+    p {
+        line-height: 1.6;
+    }
+
+    .add,
+    .spon {
+        font-weight: 500;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    .tags {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+    }
+
+    .terms p {
+        text-align: center;
+        font-weight: 700;
+    }
+
+    .text {
+        margin-left: -1rem;
+    }
+</style>
+
+<div class="container-fluid footer mt-5 ">
+    <div class="row justify-content-evenly">
+        <div class="col-3 tags ">
+            <h3 class="brand text-danger mb-3 fw-bold"><i class="fa-brands fa-airbnb fs-1  fw-bold airbnb-icon"></i>
+                <span class="text">irbnb</span>
+            </h3>
+            <p class="about">Airbnb connects hosts and travelers worldwide, offering unique stays and unforgettable
+                experiences that make
+                every trip feel like home.</p>
+        </div>
+        <div class="col-3 tags office">
+            <h3 class="mb-3">Office</h3>
+            <p class="add">ITPL Road</p>
+            <p class="add">Whitefield,Bangalore</p>
+            <p class="add">Karnataka,PIN 560024 ,India</p>
+            <p class="add"></p>
+        </div>
+        <div class=" col-3 tags sponsors">
+            <h3 class="mb-3">Sponsors</h3>
+            <p class="spon"><i class="fa-solid pe-4 fa-heart-pulse"></i>Sunrisers</p>
+            <p class="spon"><i class="fa-brands pe-4 fa-meta"></i>Meta</p>
+            <p class="spon"><i class="fa-brands pe-3 fa-sketch"></i>IBM</p>
+            <p class="spon"><i class="fa-brands pe-3 fa-reacteurope"></i>
+                Tourism</p>
+        </div>
+        <div class="col-auto tags d-flex gap-3">
             <a href="https://www.instagram.com/airbnb/"><i class=" footer-icon fa-brands fa-instagram"></i></a>
             <a href="https://x.com/airbnb_in"><i class="footer-icon fa-brands fa-twitter"></i></a>
             <a href="https://www.facebook.com/AirbnbIndia"><i class="footer-icon fa-brands fa-facebook"></i></a>
-      </div>
+        </div>
+    </div>
+    <hr>
+    <div class="terms ">
+        <p>© 2026 Airbnb-inspired project. All rights reserved.</p>
     </div>
 </div>

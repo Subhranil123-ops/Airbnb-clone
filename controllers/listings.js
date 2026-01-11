@@ -28,32 +28,41 @@ module.exports.showListing = async (req, res, next) => {
 }
 
 module.exports.createNewListing = async (req, res, next) => {
-    // cloudinary(this would be done only after authorization only so no worries)
-    let bufferImage = req.files.image[0].buffer;
-    let bufferModel = req.files.model?.[0].buffer;
-    const uploadResultImage = await new Promise((resolve, reject) => {
-        cloudinary.uploader.upload_stream((error, uploadResult) => {
-            if (error) return reject(error);
-            return resolve(uploadResult);
-        })
-            .end(bufferImage);
-    });
-    cloudinary.uploader.upload_stream({ resource_type: "raw" }, (error, uploadResult) => {
-        if (error) {
-            return reject(error);
-        }
-        return resolve(uploadResult);
-    }).end(bufferModel);
-    let imageUrl = uploadResultImage.secure_url;
-let modelUrl = uploadResultModel.secure_url;
-let newListing = new Air(req.body.listing);
-newListing.owner = req.user._id;
-newListing.geometry = req.geometry;
-newListing.media.image.url = imageUrl;
-newListing.media.model.url = modelUrl;
-await newListing.save();
-req.flash("success", "New listing is added");
-res.redirect("/listing");
+    let newListing = new Air(req.body.listing);
+    newListing.owner = req.user._id;
+    newListing.geometry = req.geometry;
+    if (req.files?.image?.length) {
+        let image = req.files.image[0];
+        let { buffer } = image;
+        const uploadResultImage = await new Promise((resolve, reject) => {
+            cloudinary.uploader.upload_stream((error, uploadResult) => {
+                if (error) return reject(error);
+                return resolve(uploadResult);
+            })
+                .end(buffer);
+        });
+        let imageUrl = uploadResultImage.secure_url;
+        newListing.media.image.url = imageUrl;
+        newListing.media.image.filename = "image";
+    }
+    if (req.files?.model?.length) {
+        let model = req.files.model[0];
+        let { buffer } = model;
+        const uploadResultModel = await new Promise((resolve, reject) => {
+            cloudinary.uploader.upload_stream({ resource_type: "raw", folder: "models" }, (error, uploadResult) => {
+                if (error) {
+                    return reject(error);
+                }
+                return resolve(uploadResult);
+            }).end(buffer);
+        });
+        let modelUrl = uploadResultModel.secure_url;
+        newListing.media.model.url = modelUrl;
+        newListing.media.model.filename = "model";
+    }
+    await newListing.save();
+    req.flash("success", "New listing is added");
+    res.redirect("/listing");
 };
 
 
@@ -70,36 +79,41 @@ module.exports.renderEditForm = async (req, res, next) => {
 
 module.exports.editListing = async (req, res, next) => {
     let { listingId } = req.params;
-    // cloudinary(this would be done only after authorization only so no worries)
-    let bufferImage = req.files.image[0].buffer;
-    let bufferModel = req.files.model?.[0].buffer;
-    const uploadResultImage = await new Promise((resolve, reject) => {
-        cloudinary.uploader.upload_stream((error, uploadResult) => {
-            if (error) return reject(error);
-            return resolve(uploadResult);
-        })
-            .end(bufferImage);
-    });
-    const uploadResultModel = await new Promise((resolve, reject) => {
-        cloudinary.uploader.upload_stream({ resource_type: "raw" }, (error, uploadResult) => {
-            if (error) {
-                return reject(error);
-            }
-            return resolve(uploadResult);
-        }).end(bufferModel);
-    });
-    let imageUrl = uploadResultImage.secure_url;
-    let modelUrl = uploadResultModel.secure_url;
-    //------------------------------------------------------
     let showEach = await Air.findById(listingId);
     if (showEach.owner.equals(req.user._id)) {
         req.body.listing.geometry = req.geometry;
-        await Air.findByIdAndUpdate(listingId, {
-            $set: {
-                ...req.body.listing,
-                "media.image.url": imageUrl
-            }
-        }, { new: true });
+        await Air.findByIdAndUpdate(listingId, req.body.listing, { new: true });
+        if (req.files?.image?.length) {
+            let image = req.files.image[0];
+            let { buffer } = image;
+            const uploadResultImage = await new Promise((resolve, reject) => {
+                cloudinary.uploader.upload_stream((error, uploadResult) => {
+                    if (error) return reject(error);
+                    return resolve(uploadResult);
+                })
+                    .end(buffer);
+            });
+            let imageUrl = uploadResultImage.secure_url;
+            showEach.media.image.url = imageUrl;
+            showEach.media.image.filename = "image";
+            await showEach.save();
+        }
+        if (req.files?.model?.length) {
+            let model = req.files.model[0];
+            let { buffer } = model;
+            const uploadResultModel = await new Promise((resolve, reject) => {
+                cloudinary.uploader.upload_stream({ resource_type: "raw", folder: "models" }, (error, uploadResult) => {
+                    if (error) {
+                        return reject(error);
+                    }
+                    return resolve(uploadResult);
+                }).end(buffer);
+            });
+            let modelUrl = uploadResultModel.secure_url;
+            showEach.media.model.url = modelUrl;
+            showEach.media.model.filename = "model";
+            await showEach.save();
+        }
         req.flash("success", "listing updated");
         return res.redirect(`/listing/${listingId}`);
     }

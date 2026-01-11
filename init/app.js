@@ -1,6 +1,8 @@
+
 const mongoose = require("mongoose");
 const data = require("./data.js");
 const Air = require("../model/air.js");
+
 async function main() {
     await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust");
 }

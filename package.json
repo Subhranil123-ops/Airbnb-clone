@@ -1,4 +1,6 @@
-{
+{"engines":{
+   "node":"20.19.6"
+},
   "name": "major_projects",
   "version": "1.0.0",
   "description": "",
@@ -17,6 +19,7 @@
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.8.0",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
@@ -25,6 +28,7 @@
     "express-session": "^1.18.2",
     "joi": "^18.0.2",
     "method-override": "^3.0.0",
+    "mongodb": "^7.0.0",
     "mongoose": "^9.0.0",
     "multer": "^2.0.2",
     "passport": "^0.7.0",

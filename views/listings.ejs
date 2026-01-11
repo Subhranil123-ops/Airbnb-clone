@@ -1,130 +1,129 @@
 <%layout("layouts/boilerplate")%>
-<%title="WanderLust"%>
-<%css="/css/listings.css"%>
+  <%title="WanderLust"%>
+    <%css="/css/listings.css"%>
 
-<style>
-  .filters {
-    border-bottom: 0.1rem solid transparent;
-  }
 
-  .filters:hover {
-    opacity: 1 !important;
-    cursor: pointer;
-    border-bottom: 0.1rem solid;
-  }
-
-  .swiper-button-prev::after,
-  .swiper-button-next::after {
-    display: none
-  }
-  .options .btn{
-    border-radius: 2rem!important;
-  }
-  .gst{
-    display:none;
-  }
-</style>
-<div class=" row ">
-  <div class="col-9">
-    <div class="swiper categorySwiper px-5">
-      <div class="swiper-wrapper">
-        <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
-          <div><i class="fa-solid fa-volleyball"></i></div>
-          <p>Beach</p>
+      </style>
+      <div class=" row ">
+        <div class="col-9">
+          <div class="swiper categorySwiper px-5">
+            <div class="swiper-wrapper">
+              <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
+                <div><i class="fa-solid fa-volleyball"></i></div>
+                <p>Beach</p>
+              </div>
+              <div class="filters text-center me-4 opacity-75 swiper-slide  w-auto">
+                <div><i class="fa-solid fa-snowman"></i></div>
+                <p>Snow</p>
+              </div>
+              <div class="filters text-center me-4 opacity-75 swiper-slide  w-auto">
+                <div><i class="fa-solid fa-temperature-high"></i></div>
+                <p>Sunny</p>
+              </div>
+              <div class="filters text-center me-4 opacity-75 swiper-slide  w-auto">
+                <div><i class="fa-solid fa-umbrella-beach"></i></div>
+                <p>Monsoon</p>
+              </div>
+              <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
+                <div><i class="fa-solid fa-leaf"></i></div>
+                <p>Breezy</p>
+              </div>
+              <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
+                <div><i class="fa-solid fa-bed"></i></div>
+                <p>Rooms</p>
+              </div>
+              <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
+                <div><i class="fa-solid fa-mountain"></i></div>
+                <p>Mountains</p>
+              </div>
+              <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
+                <div><i class="fa-solid fa-cloud-showers-heavy"></i></div>
+                <p>Cloudy</p>
+              </div>
+              <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
+                <div><i class="fa-solid fa-fire"></i></div>
+                <p>Trending</p>
+              </div>
+              <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
+                <div><i class="fa-solid fa-champagne-glasses"></i></div>
+                <p>Restuarants And Bars</p>
+              </div>
+              <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
+                <div><i class="fa-solid fa-building"></i></div>
+                <p>Apartments</p>
+              </div>
+              <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
+                <div><i class="fa-solid fa-person-swimming"></i></div>
+                <p>Pool</p>
+              </div>
+              <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
+                <div><i class="fa-solid fa-tree-city"></i></div>
+                <p>City</p>
+              </div>
+            </div>
+            <div class="swiper-button-prev"> <i class="fa-regular fa-circle-left"></i></div>
+            <div class="swiper-button-next"> <i class="fa-regular fa-circle-right"></i></div>
+          </div>
         </div>
-        <div class="filters text-center me-4 opacity-75 swiper-slide  w-auto">
-          <div><i class="fa-solid fa-snowman"></i></div>
-          <p>Snow</p>
-        </div>
-        <div class="filters text-center me-4 opacity-75 swiper-slide  w-auto">
-          <div><i class="fa-solid fa-temperature-high"></i></div>
-          <p>Sunny</p>
-        </div>
-        <div class="filters text-center me-4 opacity-75 swiper-slide  w-auto">
-          <div><i class="fa-solid fa-umbrella-beach"></i></div>
-          <p>Monsoon</p>
-        </div>
-        <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
-          <div><i class="fa-solid fa-leaf"></i></div>
-          <p>Breezy</p>
-        </div>
-        <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
-          <div><i class="fa-solid fa-bed"></i></div>
-          <p>Rooms</p>
-        </div>
-        <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
-          <div><i class="fa-solid fa-mountain"></i></div>
-          <p>Mountains</p>
-        </div>
-        <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
-          <div><i class="fa-solid fa-cloud-showers-heavy"></i></div>
-          <p>Cloudy</p>
-        </div>
-        <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
-          <div><i class="fa-solid fa-fire"></i></div>
-          <p>Trending</p>
-        </div>
-        <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
-          <div><i class="fa-solid fa-champagne-glasses"></i></div>
-          <p>Restuarants And Bars</p>
-        </div>
-        <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
-          <div><i class="fa-solid fa-building"></i></div>
-          <p>Apartments</p>
-        </div>
-        <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
-          <div><i class="fa-solid fa-person-swimming"></i></div>
-          <p>Pool</p>
-        </div>
-        <div class="filters text-center me-4 opacity-75 swiper-slide w-auto">
-          <div><i class="fa-solid fa-tree-city"></i></div>
-          <p>City</p>
+        <div class="options d-flex col-3">
+          <div class="filter-option">
+            <button class="btn">
+              <i class="fa-solid fa-sliders"></i>
+              Filters
+            </button>
+          </div>
+          <div class="tax-option  ">
+            <button class="btn">
+              <div class="form-check form-switch form-check-reverse">
+                <input
+                  class="form-check-input check"
+                  type="checkbox"
+                  id="switchCheckReverse"
+                >
+                <label
+                  class="form-check-label"
+                  for="switchCheckReverse"
+                >Display total before taxes</label>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="swiper-button-prev"> <i class="fa-regular fa-circle-left"></i></div>
-      <div class="swiper-button-next"> <i class="fa-regular fa-circle-right"></i></div>
-    </div>
-  </div>
-  <div class="options d-flex col-3">
-    <div class="filter-option">
-      <button class="btn">
-        <i class="fa-solid fa-sliders"></i>
-        Filters
-      </button>
-    </div>
-    <div class="tax-option  ">
-      <button class="btn">
-        <div class="form-check form-switch form-check-reverse">
-          <input class="form-check-input check" type="checkbox" id="switchCheckReverse">
-          <label class="form-check-label" for="switchCheckReverse">Display total before taxes</label>
-        </div>
-      </button>
-    </div>
-  </div>
-</div>
 
-<h1 class="head">All Listings</h1>
-<div class="houses row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
-  <% for( let list of showLists) { %>
-    <div class="col mb-4">
-      <div class="mycard">
-        <a href="/listing/<%=list._id%>"><img class="listing" src="<%=list.media.image.url%>" alt=""></a>
-        <b>
-          <p class="title">
-            <%=list.title%>
-          </p>
-        </b>
-        <p>₹<%=list.price.toLocaleString("en-IN")%>/night &nbsp; <i class="gst">+18%GST </i></p>
+      <h1 class="head">All Listings</h1>
+      <div class="houses row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
+        <%
+          for(
+          let
+          list
+          of
+          showLists)
+          {%>
+          <div class="col mb-4">
+            <div class="mycard">
+              <a href="/listing/<%=list._id%>"><img
+                  class="listing"
+                  src="<%=list.media.image.url%>"
+                  alt=""
+                ></a>
+              <b>
+                <p class="title">
+                  <%=list.title%>
+                </p>
+              </b>
+              <p>₹<%=list.price.toLocaleString("en-IN")%>/night &nbsp; <i class="gst">+18%GST </i></p>
+            </div>
+          </div>
+          <%}%>
       </div>
-    </div>
-    <%}%>
-</div>
-<!-- <script>
-  let tax=document.querySelector(".check");
-  let gst=document.getElementsByClassName(".gst");
-  tax.addEventListener("click",()=>{
-    console.log(gst)
-    if(gst.style.display="none") gst.style.display="inline";
-    if(gst.style.display="inline") gst.style.display="none";
-  })
-</script> -->
+      
+
+
+
+  <%#// let tax=document.querySelector(".check");
+  // let gst=document.getElementsByClassName(".gst");
+  // tax.addEventListener("click",()=>{
+  //   console.log(gst)
+  //   if(gst.style.display="none") gst.style.display="inline";
+  //   if(gst.style.display="inline") gst.style.display="none";
+  // })%>

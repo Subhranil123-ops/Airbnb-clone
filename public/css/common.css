@@ -1,81 +1,73 @@
-body{
+body {
     display: flex;
     flex-direction: column;
+    margin: 0;
     min-height: 100vh;
 }
-.container{
- flex:1;
- padding: 2rem;
+
+.container {
+    flex: 1;
+    padding: 2rem;
 }
+
 /* nav */
 
 
 .navbar-toggler {
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0.25rem !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0.25rem !important;
 }
 
 .navbar-toggler-icon {
-  width: 1.5rem !important;
-  height: 1.5rem !important;
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+}
+
+/* filters */
+.filters {
+    border-bottom: 0.1rem solid transparent;
+}
+
+.filters:hover {
+    opacity: 1 !important;
+    cursor: pointer;
+    border-bottom: 0.1rem solid;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    display: none
+}
+
+.options .btn {
+    border-radius: 2rem !important;
+}
+
+.gst {
+    display: none;
 }
 
 
-/* footer */
-/* .footer{
-    background-color:#f7f7f7c1;
-    max-width: 100%;
-    display: flex;
-    align-items: center;
-    height: 8rem;
-    padding:1rem;
-}
-.both{
-    display: flex;
-    column-gap: 60rem;
-    align-items:self ;
-}
-.inner1 ul{
-display: flex;
-    align-items: center;
-    list-style: none;
-    column-gap: 2rem;
-    color: black;
-    font-weight: 600;
-    width: 100%;
-}
-.inner2 ul{
-    display: flex;
-    align-items: center;
-    list-style: none;
-    column-gap: 2rem;
-    width: 100%;
-}
-.nav-link{
-    text-decoration: none;
-    color:grey !important;
-}
-.nav-link:hover{
-    color: black !important;
-    text-decoration: 0.1rem solid black underline;
-}*/
-.footer-icon{
+.footer-icon {
     color: black;
     font-size: 1.5rem;
-} 
-.fa-instagram:hover{
-    background: radial-gradient(circle at 30% 110%,
-    #fdf497 0%, #fdf497 5%,
-    #fd5949 45%,
-    #d6249f 60%,
-    #285AEB 90%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
-.fa-facebook:hover{
+
+.fa-instagram:hover {
+    background: radial-gradient(circle at 30% 110%,
+            #fdf497 0%, #fdf497 5%,
+            #fd5949 45%,
+            #d6249f 60%,
+            #285AEB 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.fa-facebook:hover {
     color: #1877F2;
 }
-.fa-twitter:hover{
+
+.fa-twitter:hover {
     color: #1DA1F2;
 }
