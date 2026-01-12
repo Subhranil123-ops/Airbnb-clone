@@ -1,3 +1,32 @@
+/* filters */
+.filters {
+    border-bottom: 0.1rem solid transparent;
+    transition: 0.5s;
+}
+
+.filters:hover {
+    transform:skew(20deg) ;
+    opacity: 1 !important;
+    cursor: pointer;
+    border-bottom: 0.1rem solid;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    display: none
+}
+.filters a{
+    text-decoration: none;
+    color: black;
+    opacity:0.75;
+}
+.options .btn {
+    border-radius: 2rem !important;
+}
+
+.gst {
+    display: none;
+}
 
 
 .listing{
@@ -9,9 +38,11 @@ border-radius: 1.5rem;
     display: flex;
     flex-direction: column;
     border-radius: 1.5rem;
+    transition:transform 0.5s ease-in-out ;
 }
 .mycard:hover{
-    box-shadow: 1rem 1rem 2rem 1.5rem rgb(177, 177, 177);
+    transform: scale(1.05);
+    box-shadow: 0.5rem 0.5rem 2rem 1rem rgb(177, 177, 177);
 }
 p{margin: 10px!important;
     line-height: 0.05;

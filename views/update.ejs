@@ -8,129 +8,85 @@
 
           <h1>Add New Villas</h1>
 
-          <form
-            action="/listing"
-            method="post"
-            novalidate
-            class="needs-validation"
-            enctype="multipart/form-data"
-          >
+          <form action="/listing" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
 
             <!-- title -->
             <div class="mb-3">
-              <label
-                for="title"
-                class="form-label"
-              >Title</label>
-              <input
-                id="title"
-                type="text"
-                class="form-control"
-                placeholder="Give your space a catchy title"
-                name="listing[title]"
-                required
-              >
+              <label for="title" class="form-label">Title</label>
+              <input id="title" type="text" class="form-control" placeholder="Give your space a catchy title"
+                name="listing[title]" required>
               <div class="invalid-feedback">Give a title</div>
               <div class="valid-feedback">Title looks good!</div>
             </div>
 
             <!-- description -->
             <div class="mb-3">
-              <label
-                for="description"
-                class="form-label"
-              >Description</label>
-              <textarea
-                id="description"
-                class="form-control"
-                placeholder="Share some details about your place"
-                name="listing[description]"
-                required
-              ></textarea>
+              <label for="description" class="form-label">Description</label>
+              <textarea id="description" class="form-control" placeholder="Share some details about your place"
+                name="listing[description]" required></textarea>
               <div class="invalid-feedback">Type a breif description</div>
             </div>
 
             <!-- image -->
             <div class="mb-3">
-              <label
-                for="image"
-                class="form-label"
-              >Image link</label>
-              <input
-                id="image"
-                name="image"
-                type="file"
-                class="form-control"
-                required
-              >
+              <label for="image" class="form-label">Image</label>
+              <input id="image" name="image" type="file" class="form-control" required>
             </div>
 
             <div class="mb-3">
-              <label
-                for="model"
-                class="form-label"
-              >Model link</label>
-              <input
-                id="model"
-                type="file"
-                class="form-control"
-                placeholder="Paste your link here"
-                name="model"
-              >
+              <label for="model" class="form-label">Model</label>
+              <input id="model" type="file" class="form-control" placeholder="Paste your link here" name="model">
             </div>
-
+            <!-- type -->
+            <div class="input-group mb-3">
+              <button type="button" class="btn btn-info dropdown-toggle " id="cat" data-bs-toggle="dropdown">
+                Category
+              </button>
+              <ul class="dropdown-menu" id="category-list">
+                <li><p class="dropdown-item">Beach</p></li>
+                <li><p class="dropdown-item">Snow</p></li>
+                <li><p class="dropdown-item">Sunny</p></li>
+                <li><p class="dropdown-item">Monsoon</p></li>
+                <li><p class="dropdown-item">Breezy</p></li>
+                <li><p class="dropdown-item">Rooms</p></li>
+                <li><p class="dropdown-item">Mountains</p></li>
+                <li><p class="dropdown-item">Cloudy</p></li>
+                <li><p class="dropdown-item">Trending</p></li>
+                <li><p class="dropdown-item">Restuarants And Bars</p></li>
+                <li><p class="dropdown-item">Apartments</p></li>
+                <li><p class="dropdown-item">Pool</p></li>
+                <li><p class="dropdown-item">City</p></li>
+                  </ul>
+              <input type="text" class="form-control inputcategory" name="listing[category]" required>
+              <div class="invalid-feedback">Choose a category for your listing</div>
+            </div>
             <div class="row">
               <!-- price -->
               <div class="mb-3 col-md-5">
-                <label
-                  for="price"
-                  class="form-label"
-                >Price</label>
+                <label for="price" class="form-label">Price</label>
                 <div class="input-group">
                   <span class="input-group-text">₹</span>
-                  <input
-                    id="price"
-                    name="listing[price]"
-                    class="form-control"
-                    placeholder="Enter the Price"
-                    required
-                  >
+                  <input id="price" name="listing[price]" class="form-control" placeholder="Enter the Price" required>
                   <div class="invalid-feedback">Enter a valid Price</div>
                 </div>
               </div>
 
+
+
               <!-- country -->
               <div class="mb-3 col-md-7">
-                <label
-                  for="country"
-                  class="form-label"
-                >Country</label>
-                <input
-                  id="country"
-                  name="listing[country]"
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter the Country"
-                  required
-                >
+                <label for="country" class="form-label">Country</label>
+                <input id="country" name="listing[country]" type="text" class="form-control"
+                  placeholder="Enter the Country" required>
                 <div class="invalid-feedback">Enter a valid country</div>
               </div>
             </div>
 
             <!-- location -->
             <div class="mb-5">
-              <label
-                for="location"
-                class="form-label"
-              >Location</label>
-              <input
-                id="location"
-                name="listing[location]"
-                type="text"
-                class="form-control"
-                placeholder="Enter the Location"
-                required
-              >
+              <label for="location" class="form-label">Location</label>
+              <input id="location" name="listing[location]" type="text" class="form-control"
+                placeholder="Enter the Location" required>
               <div class="invalid-feedback">Location should be valid</div>
             </div>
             <button class="btn btn-danger">Add New Listing</button>
@@ -138,3 +94,11 @@
 
         </div>
       </div>
+      <script>
+        let drop = document.querySelector("#category-list");
+        let inp = document.querySelector(".inputcategory");
+        drop.addEventListener("click", (event) => {
+          inp.value = event.target.textContent;//event.currentTarget ===ul and event.target===the element which is actually clicked
+          
+        });
+      </script>

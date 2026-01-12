@@ -1,0 +1,16 @@
+body{
+    background-image: url("/images/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.no-result{
+    height: 50rem;
+    width: 50rem;
+    background-color:transparent ;
+    background-image: url("/images/nodata.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter:blur(0.1rem);
+    margin: auto;
+}

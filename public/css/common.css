@@ -1,10 +1,15 @@
+*{
+    font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
 body {
     display: flex;
     flex-direction: column;
     margin: 0;
     min-height: 100vh;
 }
-
 .container {
     flex: 1;
     padding: 2rem;
@@ -24,29 +29,6 @@ body {
     height: 1.5rem !important;
 }
 
-/* filters */
-.filters {
-    border-bottom: 0.1rem solid transparent;
-}
-
-.filters:hover {
-    opacity: 1 !important;
-    cursor: pointer;
-    border-bottom: 0.1rem solid;
-}
-
-.swiper-button-prev::after,
-.swiper-button-next::after {
-    display: none
-}
-
-.options .btn {
-    border-radius: 2rem !important;
-}
-
-.gst {
-    display: none;
-}
 
 
 .footer-icon {

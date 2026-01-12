@@ -13,6 +13,7 @@ const listingSchema = Joi.object({
                 url: Joi.string().allow("", null)
             }),
         }),
+        category:Joi.string().required(),
         price: Joi.number().min(0).required(),
         location: Joi.string().required(),
         country: Joi.string().required()

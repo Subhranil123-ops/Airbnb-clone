@@ -14,13 +14,16 @@ router.get("/", async (req, res) => {
             query: q
         }
     });
-    let listings = []
+    let listings = [];
     let { hits } = response;
-    for (let hit of hits) {
-        let listing = await Air.findOne({ _id: hit.objectID });
-        console.log(listing);
-        listings.push(listing);
+    if (hits.length) {
+        for (let hit of hits) {
+            let listing = await Air.findOne({ _id: hit.objectID });
+            listings.push(listing);
+        }
+        res.render("./search/search.ejs", { listings });
+    }else{
+        res.render("./search/noresult.ejs");
     }
-    res.render("./search/search.ejs", { listings });
 });
 module.exports = router;

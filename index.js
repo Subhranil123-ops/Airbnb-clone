@@ -6,8 +6,10 @@ const mongoose = require("mongoose");
 const listings = require("./routes/listing");
 const reviews = require("./routes/review");
 const users = require("./routes/user");
-const ExpressError = require("./utils/ExpressError");
 const search=require("./routes/search.js");
+const filters=require("./routes/filter.js");
+const ExpressError = require("./utils/ExpressError");
+
 
 const atlas=process.env.ATLAS_DB_URL;
 async function main() {
@@ -121,7 +123,7 @@ app.use("/listing", listings);
 app.use("/listing/:listingId", reviews);
 app.use("/users", users);
 app.use("/search",search);
-
+app.use("/",filters);
 // RUNS WHEN ROUTE IS WRONG
 // app.use((req, res, next) => {
 //     next(new ExpressError(404, "Page not found"));

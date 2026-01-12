@@ -53,6 +53,10 @@ const schema = new mongoose.Schema({
             type: [Number],
             required: true
         }
+    },
+    category:{
+        type:String,
+        required:true
     }
 });
 schema.pre("findOneAndDelete", () => console.log("PRE IS WORKING FOR DELITING A LISTING"));
