@@ -6,12 +6,12 @@ const mongoose = require("mongoose");
 const listings = require("./routes/listing");
 const reviews = require("./routes/review");
 const users = require("./routes/user");
-const search=require("./routes/search.js");
-const filters=require("./routes/filter.js");
+const search = require("./routes/search.js");
+const filters = require("./routes/filter.js");
 const ExpressError = require("./utils/ExpressError");
 
 
-const atlas=process.env.ATLAS_DB_URL;
+const atlas = process.env.ATLAS_DB_URL;
 async function main() {
     await mongoose.connect(atlas);
 }
@@ -23,6 +23,10 @@ main()
         console.log(err);
     });
 
+// boilerplate
+const ejsMate = require("ejs-mate");
+app.engine("ejs", ejsMate);
+
 // ejs
 const path = require("path");
 app.set("view engine", "ejs");
@@ -32,32 +36,27 @@ app.set("views", path.join(__dirname, "views"));
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 
-// boilerplate
-const ejsMate = require("ejs-mate");
-app.engine("ejs", ejsMate);
-
+// parsing data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // public files
 app.use(express.static(path.join(__dirname, "public")));
 
-
-
 // sessions 
 const session = require("express-session");
 const MongoStore = require('connect-mongo').default;
 
-const store=MongoStore.create({
-    mongoUrl:atlas,
-    crypto:({
-        secret:process.env.SECRET
+const store = MongoStore.create({
+    mongoUrl: atlas,
+    crypto: ({
+        secret: process.env.SECRET
     }),
-    touchAfter:24*3600
+    touchAfter: 24 * 3600
 });
 const sessionOptions = {
-    store:store,
-    secret:process.env.SECRET,
+    store: store,
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -66,21 +65,15 @@ const sessionOptions = {
         httpOnly: true
     }
 }
+
 app.use(session(sessionOptions));
 const passport = require("passport");
 const { Strategy: LocalStrategy } = require("passport-local");
 const bcrypt = require("bcrypt");
 const flash = require("connect-flash");
-
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use((req, res, next) => {
-    res.locals.success = req.flash("success");
-    res.locals.failure = req.flash("failure");
-    res.locals.authenticated = req.user;
-    next();
-});
 
 // Customized usernameField and passwordField to match the nested
 // form input names instead of Passport's default fields.
@@ -104,6 +97,7 @@ passport.use(new LocalStrategy(
         }
     }
 ));
+
 passport.serializeUser((user, done) => {
     done(null, user._id);
 });
@@ -118,12 +112,19 @@ passport.deserializeUser(async (id, done) => {
     }
 })
 
+app.use((req, res, next) => {
+    res.locals.success = req.flash("success");
+    res.locals.failure = req.flash("failure");
+    res.locals.authenticated = req.user;
+    next();
+});
+
 // USING ROUTES
 app.use("/listing", listings);
 app.use("/listing/:listingId", reviews);
 app.use("/users", users);
-app.use("/search",search);
-app.use("/",filters);
+app.use("/search", search);
+app.use("/", filters);
 // RUNS WHEN ROUTE IS WRONG
 // app.use((req, res, next) => {
 //     next(new ExpressError(404, "Page not found"));

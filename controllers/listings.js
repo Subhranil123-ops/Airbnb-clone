@@ -3,15 +3,7 @@ const cloudinary = require('cloudinary').v2;
 
 module.exports.allListings = async (req, res, next) => {
     let showLists = await Air.find({});
-    let categories=[];
-    for(let list of showLists){
-        categories.push(list.category);
-    };
-    categories=categories.filter((value,index)=>{
-        return categories.indexOf(value)===index;
-    });
-    
-    res.render("listings.ejs", { showLists,categories });
+    res.render("listings.ejs", { showLists });
 };
 
 module.exports.renderCreateNewListingForm = (req, res, next) => {
@@ -39,7 +31,7 @@ module.exports.createNewListing = async (req, res, next) => {
     let newListing = new Air(req.body.listing);
     newListing.owner = req.user._id;
     newListing.geometry = req.geometry;
-    newListing.category=req.body.listing.category;
+    newListing.category = req.body.listing.category;
     if (req.files?.image?.length) {
         let image = req.files.image[0];
         let { buffer } = image;
